@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo AJAX</title>
+</head>
+<body>
+    <center>
+        <button id="btn_carregar">Carregar</button>
+        <div id="resultado"></div>
+    </center>
+    
+
+    <script type="text/javascript">
+        document.getElementById("btn_carregar").addEventListener('click', function(){
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1', true);
+
+            xhr.onload = function(){
+                if(xhr.status === 200){
+                    const data = JSON.parse(xhr.responseText);
+                    document.getElementById("resultado").innerHTML = `
+                        <h2>${data.title}</h2>
+                        <p>${data.body}</p>
+                    `;
+                }else{
+                    console.error("Erro na requisição: ",xhr.status);
+                }
+            }
+
+            xhr.send();
+        })
+    </script>
+</body>
+</html>
